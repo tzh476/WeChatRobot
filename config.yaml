@@ -54,7 +54,7 @@ news:
   receivers: ["filehelper"]  # 定时新闻接收人（roomid 或者 wxid）
 
 report_reminder:
-  receivers: []  # 定时日报周报月报提醒（roomid 或者 wxid）
+  receivers: [48264104088@chatroom]  # 定时日报周报月报提醒（roomid 或者 wxid）
 
 # 消息发送速率限制：一分钟内最多发送6条消息
 send_rate_limit: 6
@@ -78,7 +78,7 @@ chatglm:  # -----chatglm配置这行不填-----
   file_path: F:/Pictures/temp  #设定生成图片和代码使用的文件夹路径
 
 ollama:  # -----ollama配置这行不填-----
-  enable: true  # 是否启用 ollama
+  enable: false  # 是否启用 ollama
   model: deepseek-r1:1.5b # ollama-7b-sft
   prompt: 你是智能聊天机器人，你叫 梅好事  # 根据需要对角色进行设定
   file_path: d:/pictures/temp  #设定生成图片和代码使用的文件夹路径
