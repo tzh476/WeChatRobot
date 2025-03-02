@@ -8,11 +8,11 @@ import pandas as pd
 from base.Demo1_change import get_stock_change
 
 
-class Stock(object):
+class Stock:
     def __init__(self) -> None:
         self.LOG = logging.getLogger(__name__)
 
-    def get_answer(self, question: str, wxid: str) -> str:
+    def get_answer(self, question: str) -> str:
         # wxid或者roomid,个人时为微信id，群消息时为群id
         try:
             res = get_stock_change(question)
@@ -51,4 +51,4 @@ class Stock(object):
 if __name__ == "__main__":
     stock = Stock()
     code = '600036'
-    print(stock.get_answer(code, ""))
+    print(stock.get_answer(code))

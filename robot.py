@@ -19,6 +19,7 @@ from base.func_weather import Weather
 from base.func_news import News
 from base.func_tigerbot import TigerBot
 from base.func_xinghuo_web import XinghuoWeb
+from base.func_stock import Stock
 from configuration import Config
 from constants import ChatType
 from job_mgmt import Job
@@ -54,8 +55,8 @@ class Robot(Job):
             elif chat_type == ChatType.OLLAMA.value and Ollama.value_check(self.config.OLLAMA):
                 self.chat = Ollama(self.config.OLLAMA)
             else:
-                self.LOG.warning("未配置模型")
-                self.chat = None
+                self.LOG.warning("未配置其他模型，用股票")
+                self.chat = Stock()
         else:
             if TigerBot.value_check(self.config.TIGERBOT):
                 self.chat = TigerBot(self.config.TIGERBOT)
@@ -72,8 +73,8 @@ class Robot(Job):
             elif ZhiPu.value_check(self.config.ZhiPu):
                 self.chat = ZhiPu(self.config.ZhiPu)
             else:
-                self.LOG.warning("未配置模型")
-                self.chat = None
+                self.LOG.warning("未配置其他模型，用股票")
+                self.chat = Stock()
 
         self.LOG.info(f"已选择: {self.chat}")
 
@@ -121,8 +122,10 @@ class Robot(Job):
         """闲聊，接入 ChatGPT
         """
         if not self.chat:  # 没接 ChatGPT，固定回复
-            rsp = "量化平台，你@我干嘛？"
-
+            # rsp = "量化平台，你@我干嘛？"
+            self.LOG.info(msg)
+            self.LOG.warning("收到@消息，内容是" + msg.content + " " + msg.type)
+            rsp = self.chat.get_answer(msg.content)
         else:  # 接了 ChatGPT，智能回复
             q = re.sub(r"@.*?[\u2005|\s]", "", msg.content).replace(" ", "")
             rsp = self.chat.get_answer(q, (msg.roomid if msg.from_group() else msg.sender))
@@ -217,7 +220,7 @@ class Robot(Job):
             # 清除超过1分钟的记录
             self._msg_timestamps = [t for t in self._msg_timestamps if now - t < 60]
             if len(self._msg_timestamps) >= self.config.SEND_RATE_LIMIT:
-                self.LOG.warning("发送消息过快，已达到每分钟"+self.config.SEND_RATE_LIMIT+"条上限。")
+                self.LOG.warning("发送消息过快，已达到每分钟" + self.config.SEND_RATE_LIMIT + "条上限。")
                 return
             self._msg_timestamps.append(now)
 
