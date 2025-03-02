@@ -122,6 +122,7 @@ class Robot(Job):
         """
         if not self.chat:  # 没接 ChatGPT，固定回复
             rsp = "量化平台，你@我干嘛？"
+
         else:  # 接了 ChatGPT，智能回复
             q = re.sub(r"@.*?[\u2005|\s]", "", msg.content).replace(" ", "")
             rsp = self.chat.get_answer(q, (msg.roomid if msg.from_group() else msg.sender))
