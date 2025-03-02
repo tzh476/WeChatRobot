@@ -125,7 +125,7 @@ class Robot(Job):
             # rsp = "量化平台，你@我干嘛？"
             self.LOG.info(msg)
             self.LOG.warning("收到@消息，内容是" + msg.content + " " + msg.type)
-            rsp = self.chat.get_answer(msg.content)
+            rsp = self.chat.get_answer(msg.content, "")
         else:  # 接了 ChatGPT，智能回复
             q = re.sub(r"@.*?[\u2005|\s]", "", msg.content).replace(" ", "")
             rsp = self.chat.get_answer(q, (msg.roomid if msg.from_group() else msg.sender))
