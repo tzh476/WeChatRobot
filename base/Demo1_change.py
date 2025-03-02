@@ -1,5 +1,6 @@
-#A股票行情数据获取演示   https://github.com/mpquant/Ashare
-from  Ashare import *
+# A股票行情数据获取演示   https://github.com/mpquant/Ashare
+from base.Ashare import get_price_and_change_min_tx
+
 
 # 证券代码兼容多种格式 通达信，同花顺，聚宽
 # sh000001 (000001.XSHG)    sz399006 (399006.XSHE)   sh600519 ( 600519.XSHG ) 
@@ -25,6 +26,7 @@ def convert_stock_code(code: str) -> str:
         return 'sh' + code
     else:
         raise ValueError("无法识别的股票代码前缀")
+
 
 # # 测试代码
 # test_codes = ["600036", "000001", "002001", "300001", "688001", "601398"]
