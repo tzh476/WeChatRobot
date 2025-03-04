@@ -14,7 +14,8 @@ from base.Demo1_change import get_stock_change
 #     print('招商银行1分钟线\n', df)
 # 示例：获取某只股票的涨跌幅
 # stock_code = "600036"  # 招商银行
-stock_code = "002594"
+#stock_code = "002594"
+stock_code = "588000"
 result = get_stock_change(stock_code)
 
 print("\n".join([f"{key}: {value.iloc[0]}" for key, value in result.items()]))
