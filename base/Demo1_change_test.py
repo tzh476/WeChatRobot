@@ -1,5 +1,6 @@
 # 示例：获取某只股票的涨跌幅
 # stock_code = "600036"  # 招商银行
+from base.Ashare import get_price_and_change_min_tx
 from base.Demo1_change import get_stock_change
 
 
@@ -17,4 +18,7 @@ stock_code = "002594"
 result = get_stock_change(stock_code)
 
 print("\n".join([f"{key}: {value.iloc[0]}" for key, value in result.items()]))
+print("\n")
+df = get_price_and_change_min_tx("sh588000", frequency='1m', count=1)
 
+print("\n".join([f"{key}: {value.iloc[0]}" for key, value in df.items()]))
