@@ -6,32 +6,47 @@ from base.Ashare import get_price_and_change_min_tx
 # sh000001 (000001.XSHG)    sz399006 (399006.XSHE)   sh600519 ( 600519.XSHG ) 
 
 
+import re
+
+
 def convert_stock_code(code: str) -> str:
     """
-    将用户输入的A股股票代码（如 600036）转换为带交易所前缀的标准代码（如 sh600036）。
+    将用户输入的 A 股股票代码（可能含有非数字字符）转换为带交易所前缀的标准代码。
+    例如：
+    - "sh600036" → "sh600036"
+    - "600036xyz" → "sh600036"
+    - "abc000001" → "sz000001"
     """
-    if not code.isdigit() or len(code) != 6:
-        raise ValueError("股票代码必须是6位数字")
+    # 提取 `code` 中的数字部分
+    digits = re.sub(r'\D', '', code)  # 只保留数字
+
+    if len(digits) != 6:
+        raise ValueError(f"无法识别的股票代码: {code}，提取到的数字部分: {digits}，需要是6位")
 
     # 判断交易所
-    if code.startswith(('600', '601', '603', '605')):  # 沪市主板
-        return 'sh' + code
-    elif code.startswith(('000', '001')):  # 深市主板
-        return 'sz' + code
-    elif code.startswith('002'):  # 深市中小板
-        return 'sz' + code
-    elif code.startswith('300'):  # 深市创业板
-        return 'sz' + code
-    elif code.startswith('688'):  # 沪市科创板
-        return 'sh' + code
+    if digits.startswith(('600', '601', '603', '605')):  # 沪市主板
+        return 'sh' + digits
+    elif digits.startswith(('000', '001')):  # 深市主板
+        return 'sz' + digits
+    elif digits.startswith('002'):  # 深市中小板
+        return 'sz' + digits
+    elif digits.startswith('300'):  # 深市创业板
+        return 'sz' + digits
+    elif digits.startswith('688'):  # 沪市科创板
+        return 'sh' + digits
     else:
-        raise ValueError("无法识别的股票代码前缀")
+        raise ValueError(f"无法识别的股票代码前缀: {code}，提取到的数字部分: {digits}")
 
 
-# # 测试代码
-# test_codes = ["600036", "000001", "002001", "300001", "688001", "601398"]
-# for code in test_codes:
-#     print(f"用户输入: {code} -> 转换后: {convert_stock_code(code)}")
+# 示例
+# try:
+#     print(convert_stock_code("sh600036"))  # 输出: sh600036
+#     print(convert_stock_code("600036xyz"))  # 输出: sh600036
+#     print(convert_stock_code("abc000001"))  # 输出: sz000001
+#     print(convert_stock_code("xyz12345"))  # 会抛出错误
+# except ValueError as e:
+#     print(f"错误: {e}")
+
 
 
 def get_stock_change(stock_code: str):

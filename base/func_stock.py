@@ -13,15 +13,17 @@ class Stock:
 
     def get_answer(self, question: str, wxid: str) -> str:
         # wxid或者roomid,个人时为微信id，群消息时为群id
+        rsp = ""
         try:
             res = get_stock_change(question)
             res_message = self.format_stock_info(res)
             return res_message
         except Exception as e0:
             print(e0)
+            rsp = {str(e0)}
             self.LOG.error(f"发生未知错误：{str(e0)}")
 
-        return ""
+        return rsp
 
     def format_stock_info(self, stock_data):
         # 映射字典，将英文的字段转换为中文
