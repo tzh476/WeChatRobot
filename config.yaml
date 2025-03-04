@@ -51,7 +51,7 @@ groups:
   enable: ["48264104088@chatroom","50584157782@chatroom"]  # 允许响应的群 roomId，大概长这样：2xxxxxxxxx3@chatroom
 
 news:
-  receivers: ["filehelper"]  # 定时新闻接收人（roomid 或者 wxid）
+  receivers: ["48264104088@chatroom","50584157782@chatroom"]  # 定时新闻接收人（roomid 或者 wxid）
 
 report_reminder:
   receivers: ["48264104088@chatroom","50584157782@chatroom"]  # 定时日报周报月报提醒（roomid 或者 wxid）

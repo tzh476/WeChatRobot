@@ -77,7 +77,7 @@ if __name__ == "__main__":
     job.onEveryMinutes(59, printStr, "onEveryMinutes 59")
     job.onEveryHours(23, printStr, "onEveryHours 23")
     job.onEveryDays(1, printStr, "onEveryDays 1")
-    job.onEveryTime("23:59", printStr, "onEveryTime 23:59")
+    job.onEveryTime(["00:05","00:06"], printStr, "onEveryTime 23:59")
 
     while True:
         job.runPendingJobs()

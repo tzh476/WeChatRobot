@@ -10,6 +10,7 @@ from constants import ChatType
 from robot import Robot, __version__
 from wcferry import Wcf
 
+
 def main(chat_type: int):
     config = Config()
     wcf = Wcf(debug=True)
@@ -33,11 +34,11 @@ def main(chat_type: int):
     # 每天 7 点发送天气预报
     robot.onEveryTime("07:00", robot.weatherReport)
 
-    # 每天 7:30 发送新闻
-    robot.onEveryTime("07:30", robot.newsReport)
+    # 每天 8:30 发送新闻
+    robot.onEveryTime("08:30", robot.newsReport)
 
-    # 每天 16:30 提醒发日报周报月报
-    robot.onEveryTime("16:30", ReportReminder.remind, robot=robot)
+    # 每天 15:01 提醒发日报周报月报
+    robot.onEveryTime(["09:31", "15:01"], ReportReminder.remind, robot=robot)
 
     # 让机器人一直跑
     robot.keepRunningAndBlockProcess()
