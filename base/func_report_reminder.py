@@ -24,7 +24,6 @@ class ReportReminder:
             #     robot.sendTextMsg("休息日快乐", receiver)
             # 如果是工作日
             if is_workday(today):
-                robot.chat.get_answer()
                 report = ReportReminder.get_report_stock()
                 robot.sendTextMsg(report, receiver)
             # 如果是本周最后一个工作日
